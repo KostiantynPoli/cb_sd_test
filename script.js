@@ -867,10 +867,12 @@ function initCookieBanner() {
     if (selective) {
         selective.addEventListener('click', () => {
             console.log('call selective banner')
-            banner?.classList.remove('active');
-            selective_banner?.classList.add('active');
             updateLeftMenuContent('mandatory', content);
             updateContent('mandatory', templates['mandatory']);
+            console.log('DOM build')
+            banner.classList.remove('active');
+            selective_banner.classList.add('active');
+
         });
     }
 
