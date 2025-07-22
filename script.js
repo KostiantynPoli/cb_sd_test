@@ -440,14 +440,14 @@ function initCookieBanner() {
     }
 
     // МОК
-    let setTheme = () => {
-        let date = new Date();
-        date.setTime(date.getTime() + (30 * 24 * 60 * 60 * 1000));
-        let expires = "; expires=" + date.toUTCString();
-        document.cookie = "themeState=night" + expires + "; path=/";
-        document.cookie = "pll_language=en" + expires + "; path=/";
-    }
-    setTheme();
+    // let setTheme = () => {
+    //     let date = new Date();
+    //     date.setTime(date.getTime() + (30 * 24 * 60 * 60 * 1000));
+    //     let expires = "; expires=" + date.toUTCString();
+    //     document.cookie = "themeState=night" + expires + "; path=/";
+    //     document.cookie = "pll_language=en" + expires + "; path=/";
+    // }
+    // setTheme();
 
     function setCookie(name, value, days) {
         let expires = "";
@@ -861,13 +861,17 @@ function initCookieBanner() {
 
 
     showBanner();
-    selective.addEventListener('click', () => {
-        console.log('call selective banner')
-        banner.classList.remove('active');
-        selective_banner.classList.add('active');
-        updateLeftMenuContent('mandatory', content)
-        updateContent('mandatory', templates['mandatory']);
-    });
+
+    if (selective) {
+        selective.addEventListener('click', () => {
+            console.log('call selective banner')
+            banner?.classList.remove('active');
+            selective_banner?.classList.add('active');
+            updateLeftMenuContent('mandatory', content);
+            updateContent('mandatory', templates['mandatory']);
+        });
+    }
+
 
     // Добавляем слушатели для левого меню и контента
     menuItems.forEach(item => {
