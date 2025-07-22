@@ -1,6 +1,6 @@
 function initCookieBanner() {
-    if (getCookie('cookieAccepted')) return;
 
+    if (getCookie('cookieAccepted')) return;
     const messages = {
             uk: {
                 text_start: 'Ми та наші партнери використовуємо технології cookies та здійснюємо обробку таких персональних даних як IP-адреса,інтернет-браузер та ін. для забезпечення кращої взаємодії користувача з веб-сайтом, для показу рекламних оголошень користувачам, в тому числі для персоналізованої реклами на цьому веб-сайті, а також для аналітичних та статистичних цілей. Детально процес використання технологій cookies наведено в',
@@ -499,12 +499,14 @@ function initCookieBanner() {
         }
     }
 
+    if (getCookie('cookieAccepted')) return;
+
     let overlay = document.getElementById('cookie-overlay');
     let banner = document.getElementById('cookie-banner');
     let agreement = document.getElementById('agreement');
     let selective = document.getElementById('selective');
     let refusal = document.getElementById('refusal');
-    const menuItems = document.querySelectorAll('.anchors');
+    let selective_banner = document.getElementById('selective-banner');
 
 
     let theme = getCookie('themeState') || 'dark';
@@ -758,6 +760,8 @@ function initCookieBanner() {
         </div>
         `
     }
+
+    const menuItems = document.querySelectorAll('.anchors');
 
     function updateLeftMenuContent(category, content) {
         const leftMenu = document.querySelector('.left-menu');
