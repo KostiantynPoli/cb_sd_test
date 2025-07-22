@@ -442,14 +442,14 @@ function initCookieBanner() {
         }
 
         // МОК
-        let setTheme = () => {
-            let date = new Date();
-            date.setTime(date.getTime() + (30 * 24 * 60 * 60 * 1000));
-            let expires = "; expires=" + date.toUTCString();
-            document.cookie = "themeState=night" + expires + "; path=/";
-            document.cookie = "pll_language=en" + expires + "; path=/";
-        }
-        setTheme();
+        // let setTheme = () => {
+        //     let date = new Date();
+        //     date.setTime(date.getTime() + (30 * 24 * 60 * 60 * 1000));
+        //     let expires = "; expires=" + date.toUTCString();
+        //     document.cookie = "themeState=night" + expires + "; path=/";
+        //     document.cookie = "pll_language=en" + expires + "; path=/";
+        // }
+        // setTheme();
 
         function setCookie(name, value, days) {
             let expires = "";
