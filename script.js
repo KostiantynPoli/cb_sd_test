@@ -1,5 +1,5 @@
 function initCookieBanner() {
-    var messages = {
+    const messages = {
             uk: {
                 text_start: 'Ми та наші партнери використовуємо технології cookies та здійснюємо обробку таких персональних даних як IP-адреса,інтернет-браузер та ін. для забезпечення кращої взаємодії користувача з веб-сайтом, для показу рекламних оголошень користувачам, в тому числі для персоналізованої реклами на цьому веб-сайті, а також для аналітичних та статистичних цілей. Детально процес використання технологій cookies наведено в',
                 text_link: 'Політиці приватності cookies',
@@ -429,10 +429,10 @@ function initCookieBanner() {
     ;
 
     function getCookie(name) {
-        var nameEQ = name + "=";
-        var ca = document.cookie.split(';');
-        for (var i = 0; i < ca.length; i++) {
-            var c = ca[i];
+        let nameEQ = name + "=";
+        let ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
             while (c.charAt(0) === ' ') c = c.substring(1, c.length);
             if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
         }
@@ -440,19 +440,19 @@ function initCookieBanner() {
     }
 
     // МОК
-    // var setTheme = () => {
-    //     var date = new Date();
-    //     date.setTime(date.getTime() + (30 * 24 * 60 * 60 * 1000));
-    //     var expires = "; expires=" + date.toUTCString();
-    //     document.cookie = "themeState=night" + expires + "; path=/";
-    //     document.cookie = "pll_language=uk" + expires + "; path=/";
-    // }
-    // setTheme();
+    let setTheme = () => {
+        let date = new Date();
+        date.setTime(date.getTime() + (30 * 24 * 60 * 60 * 1000));
+        let expires = "; expires=" + date.toUTCString();
+        document.cookie = "themeState=night" + expires + "; path=/";
+        document.cookie = "pll_language=en" + expires + "; path=/";
+    }
+    setTheme();
 
     function setCookie(name, value, days) {
-        var expires = "";
+        let expires = "";
         if (days) {
-            var date = new Date();
+            let date = new Date();
             date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
             expires = "; expires=" + date.toUTCString();
         }
@@ -461,14 +461,15 @@ function initCookieBanner() {
 
     function mandatoryCookies() {
         // sd
-        var theme = JSON.parse(localStorage.getItem('theme'));
+        let theme = JSON.parse(localStorage.getItem('theme'));
         if (theme) {
-            var value = theme === 'light' ? 'day' : 'night';
+            let value = theme === 'light' ? 'day' : 'night';
             setCookie('themeState', value, 365)
         }
 
         // wp
-        var langValue = getCookie('pll_language')
+        let langValue = getCookie('pll_language')
+        console.log(langValue)
         langValue ? setCookie('pll_language', langValue, 365) : setCookie('pll_language', 'uk', 365);
         // tech
         setCookie('cookieAccepted', 'true', 365);
@@ -498,32 +499,31 @@ function initCookieBanner() {
 
     if (getCookie('cookieAccepted')) return;
 
-    var overlay = document.getElementById('cookie-overlay');
-    var banner = document.getElementById('cookie-banner');
-    var agreement = document.getElementById('agreement');
-    var selective = document.getElementById('selective');
-    var refusal = document.getElementById('refusal');
-    var selective_banner = document.getElementById('selective-banner');
+    let overlay = document.getElementById('cookie-overlay');
+    let banner = document.getElementById('cookie-banner');
+    let agreement = document.getElementById('agreement');
+    let selective = document.getElementById('selective');
+    let refusal = document.getElementById('refusal');
+    let selective_banner = document.getElementById('selective-banner');
 
 
-    var theme = getCookie('themeState') || 'dark';
-    var lang = getCookie('pll_language') || setCookie('pll_language', 'uk', 365);
-    ;
+    let theme = getCookie('themeState') || 'dark';
+    let lang = getCookie('pll_language') || 'uk';
 
     // Применяем тему
     if (theme === 'light') {
         banner.classList.add('light');
     }
 
-    var content = messages[lang] || messages['uk'];
+    let content = messages[lang] || messages['uk'];
 
     function renderCompanyDescriptionBlock(content, companyName) {
-        var company = content.companies[companyName];
+        const company = content.companies[companyName];
         if (!company) {
             return `<p>Not found</p>`
         }
 
-        var tableRows = company.table_data.map(row => `
+        const tableRows = company.table_data.map(row => `
                 <tr>
                     <td>${row[0]}</td>
                     <td class="description">${row[1]}</td>
@@ -532,7 +532,7 @@ function initCookieBanner() {
                     <td>${row[4]}</td>
                 </tr> `).join('');
 
-        var companyTemplateDescription = `
+        return `
         <div class="company-descriptions">
             <div class="company-block">
                 <p class="compnay-title bold">${company.company_name} – </p>
@@ -573,16 +573,15 @@ function initCookieBanner() {
                     </tbody>
                 </table>
             </div>
-        </div>`
-        return companyTemplateDescription;
+        </div>`;
     }
 
     function showText(contentLang) {
-        var template = `
+        let template = `
         ${content.text_start}
          <a href="${content.link}" class="link-privacy-policy" target="_blank">${content.text_link}</a>
         ${content.text_end}`;
-        var paragraph = document.querySelector('.text');
+        const paragraph = document.querySelector('.text');
         paragraph.innerHTML = template;
     }
 
@@ -590,7 +589,7 @@ function initCookieBanner() {
     selective.textContent = content.button_selective_consent;
     refusal.textContent = content.button_refusal_of_consent;
 
-    var templates = {
+    const templates = {
         mandatory: `
         <h3 class="header">${content.header}</h3>
         <p class="you-choose">${content.you_can_choose}</p>
@@ -760,15 +759,15 @@ function initCookieBanner() {
         `
     }
 
-    var menuItems = document.querySelectorAll('.anchors');
+    const menuItems = document.querySelectorAll('.anchors');
 
     function updateLeftMenuContent(category, content) {
-        var leftMenu = document.querySelector('.left-menu');
-        var mandatory = document.querySelector('.anchors[data-target="mandatory"]');
-        var analytics = document.querySelector('.anchors[data-target="analytics"]');
-        var marketing = document.querySelector('.anchors[data-target="marketing"]');
+        const leftMenu = document.querySelector('.left-menu');
+        const mandatory = document.querySelector('.anchors[data-target="mandatory"]');
+        const analytics = document.querySelector('.anchors[data-target="analytics"]');
+        const marketing = document.querySelector('.anchors[data-target="marketing"]');
         menuItems.forEach(item => item.classList.remove('active'));
-        var current = [...menuItems].find(item => item.dataset.target === category);
+        const current = [...menuItems].find(item => item.dataset.target === category);
         if (current) current.classList.add('active');
         leftMenu.classList.add('active');
         mandatory.textContent = content.anchor_mandatory;
@@ -778,10 +777,10 @@ function initCookieBanner() {
 
 
     function updateContent(category) {
-        var container = document.getElementById('cookies-description');
+        const container = document.getElementById('cookies-description');
         container.classList.remove('active');
 
-        var template = templates[category];
+        const template = templates[category];
         if (template) {
             container.innerHTML = template;
             requestAnimationFrame(() => container.classList.add('active'));
@@ -797,14 +796,6 @@ function initCookieBanner() {
         showText(content);
     }
 
-
-    function showDetails() {
-        banner.classList.remove('active');
-        selective_banner.classList.add('active');
-        updateLeftMenuContent('mandatory', content)
-        updateContent('mandatory', templates['mandatory']);
-    }
-
     function closeDescriptionsBanner() {
         selective_banner.classList.remove('active');
         banner.classList.add('active');
@@ -813,12 +804,12 @@ function initCookieBanner() {
 
     // accardion
     document.body.addEventListener('click', function (event) {
-        var accordion = event.target.closest('.accordion');
+        const accordion = event.target.closest('.accordion');
         if (!accordion) return; // Клик не по аккордеону
 
         accordion.classList.toggle('active');
 
-        var panel = accordion.nextElementSibling;
+        const panel = accordion.nextElementSibling;
         if (panel) {
             if (panel.style.maxHeight) {
                 panel.style.maxHeight = null;
@@ -829,10 +820,10 @@ function initCookieBanner() {
     });
 
     document.body.addEventListener('click', function (event) {
-        var backButton = event.target.closest('.back-button');
+        const backButton = event.target.closest('.back-button');
         if (!backButton) return;
-        var leftMenu = document.querySelector('.left-menu');
-        var container = document.querySelector('#cookies-description');
+        const leftMenu = document.querySelector('.left-menu');
+        const container = document.querySelector('#cookies-description');
         console.log(leftMenu);
         if (leftMenu) leftMenu.classList.remove('active');
         if (container) container.classList.remove('active');
@@ -856,9 +847,9 @@ function initCookieBanner() {
     });
 
     function restoreCheckboxStates() {
-        var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
         checkboxes.forEach((checkbox) => {
-            var saved = localStorage.getItem(checkbox.id);
+            const saved = localStorage.getItem(checkbox.id);
             if (saved !== null) {
                 checkbox.checked = saved === 'true';
             } else {
@@ -870,7 +861,13 @@ function initCookieBanner() {
 
 
     showBanner();
-    selective.addEventListener('click', showDetails);
+    selective.addEventListener('click', () => {
+        console.log('call selective banner')
+        banner.classList.remove('active');
+        selective_banner.classList.add('active');
+        updateLeftMenuContent('mandatory', content)
+        updateContent('mandatory', templates['mandatory']);
+    });
 
     // Добавляем слушатели для левого меню и контента
     menuItems.forEach(item => {
@@ -881,7 +878,7 @@ function initCookieBanner() {
         });
     });
 
-    agreement.addEventListener('click', function () {
+    agreement.addEventListener('click', () => {
         mandatoryCookies();
         selectGoogleCookie();
         selectMetaCookie()
@@ -891,7 +888,7 @@ function initCookieBanner() {
         console.log('banner', JSON.stringify(localStorage.getItem('showBanner')), typeof (getCookie('showBanner')));
     });
 
-    refusal.addEventListener('click', function () {
+    refusal.addEventListener('click', () => {
         mandatoryCookies()
         banner.style.display = 'none';
         overlay.style.display = 'none';
