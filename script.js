@@ -864,7 +864,7 @@ function initCookieBanner() {
 
     showBanner();
 
-   if (selective && selective_banner) {
+    if (selective && selective_banner) {
         selective.addEventListener('click', () => {
             console.log('selective_banner', selective_banner, typeof(selective_banner));
             console.log('call selective banner')
@@ -873,7 +873,7 @@ function initCookieBanner() {
             console.log('DOM build')
             selective_banner.style.border = '1px solid transparent';
             selective_banner.style.zIndex = '9999';
-            selective_banner.style.position = 'fixed';
+            selective_banner.style.position = 'relative';
             selective_banner.style.inset = 'auto 10vw';
 
             banner.classList.remove('active');
@@ -888,6 +888,8 @@ function initCookieBanner() {
 
         });
     }
+
+
     // Добавляем слушатели для левого меню и контента
     menuItems.forEach(item => {
         item.addEventListener('click', () => {
