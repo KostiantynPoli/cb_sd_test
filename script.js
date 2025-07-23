@@ -871,9 +871,6 @@ function initCookieBanner() {
             updateLeftMenuContent('mandatory', content);
             updateContent('mandatory', templates['mandatory']);
             console.log('DOM build')
-            selective_banner.style.border = '2px solid red';
-            selective_banner.style.zIndex = '9999';
-            selective_banner.style.position = 'relative';
 
             banner.classList.remove('active');
             selective_banner.classList.add('active');
