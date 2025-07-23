@@ -863,29 +863,13 @@ function initCookieBanner() {
 
 
     showBanner();
-
     if (selective && selective_banner) {
         selective.addEventListener('click', () => {
-            console.log('selective_banner', selective_banner, typeof(selective_banner));
-            console.log('call selective banner')
             updateLeftMenuContent('mandatory', content);
             updateContent('mandatory', templates['mandatory']);
-            console.log('DOM build')
-            selective_banner.style.border = '1px solid transparent';
-            selective_banner.style.zIndex = '9999';
-            selective_banner.style.position = 'relative';
-            selective_banner.style.inset = 'auto 10vw';
-
             banner.classList.remove('active');
             selective_banner.classList.add('active');
             console.log(selective_banner.offsetParent !== null ? 'элемент виден': 'элемент не виден')
-            if (selective_banner) {
-                const styles = getComputedStyle(selective_banner);
-                console.log('display:', styles.display);
-                console.log('visibility:', styles.visibility);
-                console.log('opacity:', styles.opacity);
-            }
-
         });
     }
 
