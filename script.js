@@ -864,13 +864,15 @@ function initCookieBanner() {
 
     showBanner();
 
-   if (selective && selective_banner) {
+  if (selective && selective_banner) {
         selective.addEventListener('click', () => {
             console.log('selective_banner', selective_banner, typeof(selective_banner));
             console.log('call selective banner')
             updateLeftMenuContent('mandatory', content);
             updateContent('mandatory', templates['mandatory']);
             console.log('DOM build')
+            selective_banner.style.zIndex = '9999';
+            selective_banner.style.position = 'fixed';
 
             banner.classList.remove('active');
             selective_banner.classList.add('active');
