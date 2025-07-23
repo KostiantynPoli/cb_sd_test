@@ -866,13 +866,15 @@ function initCookieBanner() {
 
    if (selective && selective_banner) {
         selective.addEventListener('click', () => {
+            console.log('selective_banner', selective_banner, typeof(selective_banner));
             console.log('call selective banner')
             updateLeftMenuContent('mandatory', content);
             updateContent('mandatory', templates['mandatory']);
             console.log('DOM build')
-            
+
             banner.classList.remove('active');
             selective_banner.classList.add('active');
+            console.log(selective_banner.offsetParent !== null)
 
         });
     }
