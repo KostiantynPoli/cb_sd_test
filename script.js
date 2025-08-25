@@ -449,7 +449,7 @@ function initCookieBanner() {
     //     document.cookie = "pll_language=en" + expires + "; path=/";
     // }
     // setTheme();
-    // document.cookie = "themeState=night" + '' + "; path=/";
+    document.cookie = "themeState=night" + '' + "; path=/";
 
     function setCookie(name, value, days) {
         let expires = "";
