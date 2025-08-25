@@ -449,7 +449,7 @@ function initCookieBanner() {
     //     document.cookie = "pll_language=en" + expires + "; path=/";
     // }
     // setTheme();
-    document.cookie = "themeState=night" + '' + "; path=/";
+    // document.cookie = "themeState=night" + '' + "; path=/";
 
     function setCookie(name, value, days) {
         let expires = "";
@@ -831,18 +831,27 @@ function initCookieBanner() {
 
 
     // accardion
-    selective_banner.addEventListener('click', function (event) {
+    selective_banner.addEventListener('click', function(event) {
         const accordion = event.target.closest('.accordion');
-        if (!accordion) return; // Клик не по аккордеону
+        if (!accordion) return;
 
         accordion.classList.toggle('active');
 
         const panel = accordion.nextElementSibling;
-        if (panel) {
-            if (panel.style.maxHeight) {
-                panel.style.maxHeight = null;
-            } else {
+        if (!panel) return;
+
+        if (panel.style.maxHeight) {
+            panel.style.maxHeight = null; // закрытие
+        } else {
+            // открытие с учётом динамического контента
+            panel.style.maxHeight = panel.scrollHeight + "px";
+
+            // подождать, пока JS вставит контент, и пересчитать высоту
+            setTimeout(() => {
                 panel.style.maxHeight = panel.scrollHeight + "px";
+            }, 200);
+            if (window.innerWidth <= 600) {
+                accordion.scrollIntoView({ behavior: "smooth", block: "start" });
             }
         }
     });
