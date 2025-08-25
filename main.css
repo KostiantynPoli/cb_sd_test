@@ -69,9 +69,9 @@ table {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 9999;
     max-width: 970px;
-    border-radius: 10px;
+    width: 90%;
+    border-radius: 20px;
 }
 
 .dark-theme {
@@ -93,7 +93,8 @@ table {
     color: #737373;
 }
 
-.dark-theme .accordion.active, .accordion:hover {
+.cookie-modal-details.dark-theme .accordion.active,
+.cookie-modal-details.dark-theme .accordion:hover {
     background-color: #4d4a4a;
 }
 
@@ -118,11 +119,12 @@ table {
 }
 
 .light-theme .accordion {
-    color: #444;
+    color: #f2f0f0;
 }
 
-.light-theme .accordion.active, .accordion:hover {
-    color: #444;
+.cookie-modal-details.light-theme .accordion.active,
+.cookie-modal-details.light-theme .accordion:hover {
+    background-color: #e3e2e2;
 }
 
 .light-theme tbody {
@@ -149,7 +151,8 @@ table {
 }
 
 .cookie-text {
-    margin: 70px;
+    padding: 70px;
+
 }
 
 .cookie-text .text {
@@ -169,12 +172,6 @@ table {
     justify-content: space-between;
     gap: 115px;
 }
-
-
-/*#cookie-banner.light {*/
-/*    background: #f2f2f2;*/
-/*    color: #000;*/
-/*}*/
 
 #cookie-banner .button {
     font-weight: 700;
@@ -205,15 +202,17 @@ table {
 .cookie-modal-details {
     position: fixed;
     top: 50%;
-    transform: translateY(-50%);
+    left: 50%;
+    transform: translate(-50%, -50%);
     z-index: 10000;
     max-width: 1440px;
     max-height: 90vh;
     overflow-y: auto;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: flex-start;
-    padding: 4% 8%;
+    padding: 3% 3%;
 }
 
 .left-menu {
@@ -297,24 +296,60 @@ table {
 }
 
 .accordion {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     cursor: pointer;
     padding: 18px;
     border: none;
     outline: none;
     transition: 0.4s;
+    gap: 10px;
+    box-sizing: border-box;
+    width: 100%;
 }
 
+.logo-wrapper {
+    flex: 0 0 auto; /* фиксированный размер под иконку */
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    margin-right: 12px;
+}
+
+.text-wrapper {
+    flex: 1 1 auto;
+    min-width: 0; /* важно, чтобы текст не ломал верстку */
+    display: flex;
+    align-items: center;
+    margin: 0 10px
+}
+
+.text-wrapper .text {
+    display: block;             /* или inline-block */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.switcher-wrapper {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
 
 .accordion:after {
+    position: absolute;
+    right: 12px;
     content: '\002B';
     color: #777;
     font-weight: bold;
-    float: left;
     margin-left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .accordion.active:after {
@@ -346,7 +381,7 @@ table {
 }
 
 .logo-wrapper {
-    width: calc(50% - 75px); /* 50% от родителя минус 75px */
+    width: calc(50% - 120px); /* 50% от родителя минус 75px */
     /*left: calc(50% + 10px);  !* 50% + сдвиг *!*/
 }
 
@@ -500,4 +535,198 @@ tr td {
     border: 2px solid #7ab341;
     color: #fff;
     background: #7ab341;
+}
+
+@media (max-width: 1024px) {
+    #cookie-banner {
+        max-width: 80%;
+        padding: 20px;
+    }
+    .cookie-text {
+        padding: 30px;
+    }
+
+    .cookie-modal-details {
+        padding: 3% 6%;
+        max-width: 95%;
+    }
+
+    .left-menu {
+        flex: 0 0 25%;
+        max-width: 25%;
+    }
+
+    .cookies-description {
+        flex: 0 0 75%;
+        max-width: 75%;
+    }
+    .cookies-description .porviders {
+        font-size: 13px;
+        margin-top: 30px;
+        padding-bottom: 20px;
+    }
+
+    .accordion {
+        padding: 15px;
+    }
+    .logo-wrapper {
+        width: 70px;
+        height: 70px;
+    }
+
+    .company-descriptions {
+        margin-top: 70px;
+    }
+
+    .provider-item {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+    .back-button {
+        text-align: center;
+    }
+}
+
+@media (max-width: 900px) {
+    .button-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .cookie-text {
+        padding: 20px;
+        font-size: 14px;
+    }
+    #cookie-banner .button {
+        width: 90%;
+    }
+
+    .cookie-modal-details {
+        padding: 2% 4%;
+    }
+
+    .left-menu {
+        flex: 0 0 20%;
+        max-width: 20%;
+        gap: 20px;
+    }
+
+    .cookies-description {
+        flex: 0 0 80%;
+        max-width: 80%;
+    }
+    .cookies-description .porviders {
+        font-size: 12px;
+        margin-top: 25px;
+        padding-bottom: 15px;
+    }
+
+    .accordion {
+        gap: 10px;
+        padding: 15px;
+    }
+
+    .text-wrapper .text {
+        font-size: 15px;
+    }
+    .company-descriptions {
+        margin-top: 50px;
+    }
+
+    .provider-item {
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+}
+
+@media (max-width: 600px) {
+    #cookie-banner {
+        max-width: 95%;
+        padding: 15px;
+        top: auto;
+        left: 50%;
+        bottom: 20px;
+        transform: translateX(-50%);
+        border-radius: 20px;
+    }
+
+    .button-wrapper {
+        display: flex;
+        flex-direction: column;
+        max-width: 100%;
+        gap: 10px;
+    }
+    .cookie-modal-details {
+        overflow-y: auto;       /* скролл по вертикали */
+        flex-direction: row; /* колоночная верстка */
+        align-items: center;
+        /*align-items: stretch;   !* блоки тянутся по ширине *!*/
+    }
+
+    .left-menu {
+        flex: 1 0 auto;
+        width: 100%;
+        order: -1; /* меню наверху */
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .cookies-description {
+        flex: 1 0 auto;
+        max-width: 100%;
+        margin-top: 20px;
+    }
+    .cookies-description .porviders {
+        font-size: 11px;
+        text-align: left;
+        margin-top: 20px;
+        padding-bottom: 10px;
+        overflow-y: auto;
+    }
+
+    .accordion {
+        gap: 8px;
+        padding: 12px;
+    }
+
+    .logo-wrapper svg {
+        width: 40px;
+        height: 40px;
+    }
+
+    .text-wrapper .text {
+        font-size: 14px;
+    }
+
+    .switcher-wrapper {
+        transform: scale(0.9); /* немного уменьшаем переключатель */
+    }
+
+    .company-descriptions {
+        margin-top: 30px;
+    }
+
+    .provider-item {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .table-wrapper {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch; /* плавный скролл на iOS */
+    }
+
+    .cookie-table {
+        min-width: 600px; /* чтобы таблица не ломалась */
+    }
+
+    thead tr th, tr td {
+        padding: 12px 8px;
+        font-size: 12px;
+    }
+
+    .back-button {
+        text-align: center;
+    }
 }
