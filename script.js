@@ -831,7 +831,15 @@ function initCookieBanner() {
 
 
     // accardion
-    selective_banner.addEventListener('click', function(event) {
+    // Один обработчик для кликов внутри selective_banner
+    selective_banner.addEventListener('click', function (event) {
+        // 1. Если клик по чекбоксу или его обёртке → выходим
+        if (event.target.closest('.switcher-wrapper')) {
+            event.stopPropagation();
+            return;
+        }
+
+        // 2. Если клик по аккордеону → переключаем
         const accordion = event.target.closest('.accordion');
         if (!accordion) return;
 
@@ -841,18 +849,28 @@ function initCookieBanner() {
         if (!panel) return;
 
         if (panel.style.maxHeight) {
-            panel.style.maxHeight = null; // закрытие
+            // закрытие
+            panel.style.maxHeight = null;
         } else {
             // открытие с учётом динамического контента
             panel.style.maxHeight = panel.scrollHeight + "px";
 
-            // подождать, пока JS вставит контент, и пересчитать высоту
+            // пересчёт после вставки динамического контента
             setTimeout(() => {
                 panel.style.maxHeight = panel.scrollHeight + "px";
             }, 200);
+
+            // автоскролл для мобильной версии
             if (window.innerWidth <= 600) {
                 accordion.scrollIntoView({ behavior: "smooth", block: "start" });
             }
+        }
+    });
+
+// Отдельно — обработчик изменения чекбоксов (чисто логика хранения состояния)
+    selective_banner.addEventListener('change', (event) => {
+        if (event.target.matches('input[type="checkbox"]')) {
+            localStorage.setItem(event.target.id, event.target.checked);
         }
     });
 
@@ -865,22 +883,6 @@ function initCookieBanner() {
         if (leftMenu) leftMenu.classList.remove('active');
         if (container) container.classList.remove('active');
         closeDescriptionsBanner();
-    });
-
-    selective_banner.addEventListener('click', (event) => {
-        // Если клик по чекбоксу
-        if (event.target.classList.contains('toggle-checkbox')) {
-            // Стоп всплытие, чтоб не сработал родитель (аккордеон)
-            event.stopPropagation();
-            return;
-        }
-    })
-
-    // Добавление слушателя для чекбокса
-    selective_banner.addEventListener('change', (event) => {
-        if (event.target.matches('input[type="checkbox"]')) {
-            localStorage.setItem(event.target.id, event.target.checked);
-        }
     });
 
     function restoreCheckboxStates() {
@@ -909,8 +911,6 @@ function initCookieBanner() {
         });
     }
 
-
-    // Добавляем слушатели для левого меню и контента
     menuItems.forEach(item => {
         item.addEventListener('click', () => {
             updateLeftMenuContent(item.dataset.target, content);
